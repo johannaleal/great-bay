@@ -4,11 +4,27 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 
+const connection = mysql.createConnection({
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'Trilogy2021',
+    database: 'greatBayDB',
+  });
+
 // STARTING DATA
 
 // FUNCTIONS
     // 
     // "POST AN ITEM"
+    const viewAllEmployees = () => {
+        connection.query('select e.id, first_name, last_name, title, d.name AS department from employee as e INNER JOIN role as r ON e.role_id = r.id INNER JOIN department AS d ON r.department_id = d.id', (err, res) => {
+          if (err) throw err;
+          // Log all results of the SELECT statement
+          console.table(res);
+          connection.end();
+        });
+      };
     // "BID ON AN ITEM"
     // EXIT
 
@@ -36,13 +52,8 @@ const mysql = require('mysql');
         //  Inform the user of their failure
         //  Boot them back to the selection screen.
 
-// Display menu
-    // View user auctions
-    // Add new auction
-    // Modify auction
-    // Close bidding on auction
-
 // Function - Display user's previously auctions
+
 
 // Function - add new auction
 
@@ -54,11 +65,12 @@ const mysql = require('mysql');
 
 // Create a third option on the main screen which allows administrators to modify the database as they see fit.
 
-// Create visually appealing tables. This means making dynamic console code and it is a lot harder than it might seem at first so do not think this one is so simple.
+// Create visually appealing tables. 
+// This means making dynamic console code and it is a lot harder than 
+//it might seem at first so do not think this one is so simple.
 
-// Create a search function that allows users to look through the database of available auctions to find those that share the specified keyword or username.
-
-// Get creative! There are a lot of addons to this app which you could create so feel free to work with your group to come up with something not listed above!
+// Create a search function that allows users to look through the database of 
+// available auctions to find those that share the specified keyword or username.
 
 // USER INTERACTIONS
 // Prompt the user to get answers to questions.
@@ -79,7 +91,7 @@ inquirer
         case "Bid on an item":
             break;
         case "Exit":
-            
+            connection.end();
             break;
 
     };
