@@ -1,6 +1,8 @@
 // DEPENDENCIES
 // MySQL
 // Inquirer
+const inquirer = require('inquirer');
+const mysql = require('mysql');
 
 // STARTING DATA
 
@@ -9,8 +11,6 @@
     // "POST AN ITEM"
     // "BID ON AN ITEM"
     // EXIT
-
-// USER INTERACTIONS
 
 
 // sign up function
@@ -59,3 +59,32 @@
 // Create a search function that allows users to look through the database of available auctions to find those that share the specified keyword or username.
 
 // Get creative! There are a lot of addons to this app which you could create so feel free to work with your group to come up with something not listed above!
+
+// USER INTERACTIONS
+// Prompt the user to get answers to questions.
+inquirer
+  .prompt([
+    {
+        type: 'list',
+        message: 'Which would you like to do?',
+        name: 'action',
+        choices: ["Post and item", "Bid on an item", "Exit"],
+    }
+  ])
+  // Write a ReadMe file using the amswers to the prompts.
+  .then(userResponse => {
+    switch (userResponse.action) {
+        case "Post and item":
+            break;
+        case "Bid on an item":
+            break;
+        case "Exit":
+            
+            break;
+
+    };
+  })
+  // If there is an error, write an error to the console.
+  .catch(err => {
+    console.error(err);
+  })
