@@ -9,7 +9,7 @@ const connection = mysql.createConnection({
     port: 3306,
     user: 'root',
     password: 'Trilogy2021',
-    database: 'greatBayDB',
+    database: 'greatbay_db',
   });
 
 // STARTING DATA
@@ -17,8 +17,8 @@ const connection = mysql.createConnection({
 // FUNCTIONS
     // 
     // "POST AN ITEM"
-    const viewAllEmployees = () => {
-        connection.query('select e.id, first_name, last_name, title, d.name AS department from employee as e INNER JOIN role as r ON e.role_id = r.id INNER JOIN department AS d ON r.department_id = d.id', (err, res) => {
+    const add = () => {
+        connection.query('', (err, res) => {
           if (err) throw err;
           // Log all results of the SELECT statement
           console.table(res);
@@ -33,8 +33,6 @@ const connection = mysql.createConnection({
 
 // login function
     // prompt user for a username and password upon loading up the app. 
-
-// Prompt the USER TO EITHER "POST AN ITEM" OR "BID ON AN ITEM"
 
 // If the user selects "POST AN ITEM" 
 //  Prompt them for an assortment of information regarding the item
@@ -54,8 +52,34 @@ const connection = mysql.createConnection({
 
 // Function - Display user's previously auctions
 
+const saveItem = (item) => {
+
+};
 
 // Function - add new auction
+const postItem = () => {
+    inquirer
+  .prompt([
+    {
+        type: 'input',
+        message: 'Enter item descrition:',
+        name: 'itemDescription'
+    },
+    {
+        type: 'input',
+        message: 'Enter item category:',
+        name: 'itemCategory'
+    }
+  ])
+  // Write a ReadMe file using the amswers to the prompts.
+  .then(userResponse => {
+        saveItem(userResponse);
+  })
+  // If there is an error, write an error to the console.
+  .catch(err => {
+    console.error(err);
+  })
+}
 
 // Function - modify previous auction
 
@@ -65,15 +89,11 @@ const connection = mysql.createConnection({
 
 // Create a third option on the main screen which allows administrators to modify the database as they see fit.
 
-// Create visually appealing tables. 
-// This means making dynamic console code and it is a lot harder than 
-//it might seem at first so do not think this one is so simple.
-
 // Create a search function that allows users to look through the database of 
 // available auctions to find those that share the specified keyword or username.
 
 // USER INTERACTIONS
-// Prompt the user to get answers to questions.
+// Prompt the user for selection.
 inquirer
   .prompt([
     {
@@ -87,6 +107,7 @@ inquirer
   .then(userResponse => {
     switch (userResponse.action) {
         case "Post and item":
+            postItem();
             break;
         case "Bid on an item":
             break;
